@@ -49,7 +49,7 @@ export const getCountryCode = async () => {
   }
 };
 
-export const getCity = async () => {
+export const getCityFromApi = async () => {
   try {
     const countryCode = await getCountryCode();
     logger.info(`Getting city for country code: ${countryCode}`);
@@ -77,8 +77,14 @@ export const getCity = async () => {
 
 export const setupCron = async () => {
   schedule(async () => {
-    const city = await getCity();
+    const city = await getCityFromApi();
     const { storeInRedis } = await getRedisClient();
     await storeInRedis("current-city", city);
   });
+};
+
+export const getCurrentCityFromRedis = async () => {
+  const { getFromRedis } = await getRedisClient();
+  const city = await getFromRedis("current-city");
+  return city;
 };
