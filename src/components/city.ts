@@ -62,7 +62,10 @@ export const getCity = async () => {
       }
     );
     const cities = response.data as City[];
-    const index = getRandomIndex(cities.length);
+    const filteredCities = cities
+      .filter(({ name }) => name.length <= 8)
+      .map(({ name }) => name.replace(/\s/g, "").toLowerCase());
+    const index = getRandomIndex(filteredCities.length);
     const { name }: City = cities[index];
     logger.info(`Recieved city: ${name}`);
     return name;
