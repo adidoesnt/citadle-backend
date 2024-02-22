@@ -1,7 +1,16 @@
 import { Elysia } from "elysia";
+import { health } from "plugins";
+import { getLogger } from "utils";
 
-const app = new Elysia().get("/", () => "Hello Elysia").listen(3000);
+const { PORT: port = 3001 } = process.env;
 
-console.log(
-  `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-);
+const app = new Elysia().use(health).listen(port);
+const logger = getLogger('index');
+
+const { server } = app;
+if(server) {
+  const { hostname, port } = server;
+  logger.info(`🦊 Elysia server is running at ${hostname}:${port}`);
+} else {
+  logger.error('🦊 Elysia server failed to start');
+}
