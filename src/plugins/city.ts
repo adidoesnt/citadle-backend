@@ -11,7 +11,7 @@ export const city = new Elysia({
     try {
       const city = await getCurrentCityFromRedis();
       set.status = 200;
-      return city;
+      return { city };
     } catch (error) {
       set.status = 500;
       return error;
