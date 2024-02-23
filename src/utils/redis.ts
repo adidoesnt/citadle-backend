@@ -4,6 +4,7 @@ import { getLogger } from "./logger";
 const {
   REDIS_HOST: host,
   REDIS_PORT: port,
+  REDIS_PASSWORD: password,
   NODE_ENV = "DEV",
 } = process.env;
 const logger = getLogger("redis");
@@ -15,11 +16,13 @@ const redisConfig =
           host: host ?? "localhost",
           port: Number(port) ?? 6379,
         },
+        password,
       }
     : {
         socket: {
           host,
         },
+        password,
       };
 
 export const getRedisClient = async () => {
