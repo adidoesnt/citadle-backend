@@ -17,7 +17,6 @@ const redisConfig =
           host: host ?? "localhost",
           port: Number(port) ?? 6379,
         },
-        password,
       }
     : {
         url,
