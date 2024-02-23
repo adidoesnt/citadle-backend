@@ -11,4 +11,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD bun run start --port $PORT
+CMD bun run start

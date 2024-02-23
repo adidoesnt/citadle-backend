@@ -52,7 +52,6 @@ jobs:
           heroku config:set \
           NODE_ENV=${{ secrets.NODE_ENV }} \
           REDIS_HOST=${{ secrets.REDIS_HOST }} \
-          API_KEY=${{ secrets.API_KEY }} \
           API_NINJA_KEY=${{ secrets.API_NINJA_KEY }} \
           API_NINJA_URL=${{ secrets.API_NINJA_URL }} \
           REST_COUNTRIES_URL=${{ secrets.REST_COUNTRIES_URL }} \

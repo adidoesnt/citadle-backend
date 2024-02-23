@@ -1,17 +1,9 @@
 import { getCurrentCityFromRedis, storeCityInRedis } from "components";
 import { Elysia } from "elysia";
 
-const { API_KEY: apiKey } = process.env;
-
 export const city = new Elysia({
   prefix: "city",
 })
-  .onBeforeHandle(({ headers, set }) => {
-    if (headers["x-api-key"] !== apiKey) {
-      set.status = 401;
-      return "Unauthorized";
-    }
-  })
   .get("/", async ({ set }) => {
     try {
       const city = await getCurrentCityFromRedis();
