@@ -42,14 +42,14 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
       - name: Build Docker image
-        run: cd backend && docker build -t registry.heroku.com/citadle-backend/web .
+        run: docker build -t registry.heroku.com/citadle-backend/web .
 
       - name: Push Docker image to Heroku container registry
-        run: cd backend && docker push registry.heroku.com/citadle-backend/web
+        run: docker push registry.heroku.com/citadle-backend/web
 
       - name: Set environment variables
         run: |
-          cd backend && heroku config:set \
+          heroku config:set \
           NODE_ENV=${{ secrets.NODE_ENV }} \
           REDIS_HOST=${{ secrets.REDIS_HOST }} \
           REDIS_PASSWORD=${{ secrets.REDIS_PASSWORD }} \
@@ -66,6 +66,6 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
 
       - name: Release Docker image to Heroku
-        run: cd backend && heroku container:release web --app citadle-backend
+        run: heroku container:release web --app citadle-backend
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
