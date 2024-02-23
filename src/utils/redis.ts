@@ -22,9 +22,9 @@ const redisConfig =
         url,
       };
 
-export const getRedisClient = async () => {
-  const redisClient = createClient(redisConfig);
+const redisClient = createClient(redisConfig);
 
+export const getRedisClient = async () => {
   const storeInRedis = async (key: string, value: string) => {
     await redisClient.connect();
     logger.info(`Storing ${key} in Redis`);
