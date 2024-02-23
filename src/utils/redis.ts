@@ -5,6 +5,7 @@ const {
   REDIS_HOST: host,
   REDIS_PORT: port,
   REDIS_PASSWORD: password,
+  REDISCLOUD_URL: url,
   NODE_ENV = "DEV",
 } = process.env;
 const logger = getLogger("redis");
@@ -19,10 +20,7 @@ const redisConfig =
         password,
       }
     : {
-        socket: {
-          host,
-        },
-        password,
+        url,
       };
 
 export const getRedisClient = async () => {
