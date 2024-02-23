@@ -88,3 +88,8 @@ export const getCurrentCityFromRedis = async () => {
   const city = await getFromRedis("current-city");
   return city;
 };
+
+export const storeCityInRedis = async (city: string) => {
+  const { storeInRedis } = await getRedisClient();
+  await storeInRedis("current-city", city);
+};

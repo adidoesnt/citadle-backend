@@ -1,1 +1,1 @@
-export { setupCron, getCurrentCityFromRedis } from './city';
+export { setupCron, getCurrentCityFromRedis, storeCityInRedis } from './city';
