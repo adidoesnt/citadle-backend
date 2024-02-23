@@ -1,16 +1,29 @@
 import { createClient } from "redis";
 import { getLogger } from "./logger";
 
-const { REDIS_HOST: host, REDIS_PORT: port = 6379 } = process.env;
+const {
+  REDIS_HOST: host,
+  REDIS_PORT: port,
+  NODE_ENV = "DEV",
+} = process.env;
 const logger = getLogger("redis");
 
+const redisConfig =
+  NODE_ENV === "DEV"
+    ? {
+        socket: {
+          host: host ?? "localhost",
+          port: Number(port) ?? 6379,
+        },
+      }
+    : {
+        socket: {
+          host,
+        },
+      };
+
 export const getRedisClient = async () => {
-  const redisClient = createClient({
-    socket: {
-      host,
-      port: Number(port),
-    },
-  });
+  const redisClient = createClient(redisConfig);
 
   await redisClient.connect();
   logger.info(`Connected to Redis at ${host}:${port}`);
@@ -28,5 +41,5 @@ export const getRedisClient = async () => {
   return {
     storeInRedis,
     getFromRedis,
-  }
+  };
 };

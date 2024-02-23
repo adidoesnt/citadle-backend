@@ -5,6 +5,7 @@ This is the backend for Citadle, a Wordle like game for guessing the names of ci
 ## Setup
 To get started, you will need the following in your .env file:
 ```bash
+NODE_ENV=
 PORT=
 REDIS_HOST=
 REDIS_PORT=
