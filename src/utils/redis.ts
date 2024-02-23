@@ -25,17 +25,19 @@ const redisConfig =
 export const getRedisClient = async () => {
   const redisClient = createClient(redisConfig);
 
-  await redisClient.connect();
-  logger.info(`Connected to Redis at ${host}:${port}`);
-
   const storeInRedis = async (key: string, value: string) => {
+    await redisClient.connect();
     logger.info(`Storing ${key} in Redis`);
     await redisClient.set(key, value);
+    await redisClient.disconnect();
   };
 
   const getFromRedis = async (key: string) => {
+    await redisClient.connect();
     logger.info(`Getting ${key} from Redis`);
-    return await redisClient.get(key);
+    const result = await redisClient.get(key);
+    await redisClient.disconnect();
+    return result;
   };
 
   return {
